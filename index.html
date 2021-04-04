@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Typeing Game" content="width=device-width, initial-scale=1.0">
+    <title>Typing Game</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body class="bg-dark ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-light bg-secondary">
+        <a class="navbar-brand  text-light" href="#">
+            The Typing Game
+        </a>
+    </nav>
+
+    <!-- content -->
+    <div class="container text-center text-light mt-4">
+
+        <!-- Word and input-->
+        <div class="row">
+            <div class="co-md-6 mx-auto ">
+                <p class="lead">Type The Given Word With <span class="text-success" id="seconds">5</span> Seconds.</p>
+
+                <h2 class="display-2 mb-5" id="current-word"> start </h2>
+
+                <input class="form-control form-control-lg" type="text" id="textinput" placeholder="Start typing...">
+                <h4 class="mt-3" id="message"></h4>
+
+
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="co-md-6 mx-auto   ">
+                <h3>Time Left:
+                    <span id="time">0</span>
+                </h3>
+                <h3>Score:
+                    <span id="score">0</span>
+                </h3>
+            </div>
+
+
+        </div>
+
+        <!-- instructions -->
+        <div class="row mt-4">
+            <div class="co-md-6 mx-auto   ">
+
+                <div class="card text-left bg-secondary">
+                    <div class="card-body">
+                        <h4 class="card-title">Instructions</h4>
+                        <p class="card-text">Type each word in the given amount of seconds to score. To play again, just
+                            type the current word. Your score will reset. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>
