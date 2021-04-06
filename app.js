@@ -80,7 +80,8 @@ function startGame() {
         score ++
         time = difficultly + 1;
        
-        textInput.value = ""
+        textInput.value = '';
+        message.innerHTML = 'Keep going!!!';
         loadNewWord();
     } else {
         
