@@ -1,11 +1,10 @@
 
 
-
 //global variables
 let time = 0;
 let score = 0;
 let isPlaying;
-let difficultly = 20;
+let difficultly = 5;
 
 //elements
 const difficultlyText = document.querySelector('#seconds');
@@ -18,38 +17,48 @@ const message = document.querySelector('#message');
 
 window.addEventListener("load", init);
 
-const words = [
-    'hat',
-    'river',
-    'lucky',
-    'statue',
-    'generate',
-    'stubborn',
-    'cocktail',
-    'runaway',
-    'joke',
-    'developer',
-    'establishment',
-    'hero',
-    'javascript',
-    'nutrition',
-    'revolver',
-    'echo',
-    'siblings',
-    'investigate',
-    'horrendous',
-    'symptom',
-    'laughter',
-    'magic',
-    'master',
-    'space',
-    'definition'
-];
+// const words = [
+//     'hat',
+//     'river',
+//     'lucky',
+//     'statue',
+//     'generate',
+//     'stubborn',
+//     'cocktail',
+//     'runaway',
+//     'joke',
+//     'developer',
+//     'establishment',
+//     'hero',
+//     'javascript',
+//     'nutrition',
+//     'revolver',
+//     'echo',
+//     'siblings',
+//     'investigate',
+//     'horrendous',
+//     'symptom',
+//     'laughter',
+//     'magic',
+//     'master',
+//     'space',
+//     'definition'
+// ];
+
+let wordsList = [];
+
+
+    fetch('./res/dictionary.json')
+    .then(res => res.json()).then(data => {
+        //wordsList = data
+        wordsList = data
+    });
+
 
 
 
 function init() {
-
+    
     //set difficulty
     difficultlyText.innerHTML = difficultly;
     time = difficultly;
@@ -75,15 +84,15 @@ function startGame() {
         loadNewWord();
     } else {
         
-        //loadNewWolrd();
+        
     }
-    //if input matches currentword
-        // score ++
-        // reset time
-        //loadnew word
-    // else
-        // move to next word
-    displayScore.innerHTML = score;
+    
+    if (score == 0 || score == -1) {
+        displayScore.innerHTML = 0;
+    } else {
+        displayScore.innerHTML = score;
+
+    }
    
 }
 
@@ -94,14 +103,12 @@ function wordsMatch() {
         return false;
     }
 
-   
 }
 
 function loadNewWord() {
-    randomIndex = Math.floor(Math.random() * words.length);
+    randomIndex = Math.floor(Math.random() * wordsList.length);
 
-    currentWord.innerHTML = words[randomIndex];
-    
+    currentWord.innerHTML = wordsList[randomIndex];
 }
 
 function countDown() {
@@ -118,6 +125,8 @@ function countDown() {
 function checkStatus() {
     if (time <= 0 && isPlaying === false) {
         message.innerHTML = 'Game Over'
+        score = -1;
+
     }
 
 }
