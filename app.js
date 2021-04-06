@@ -1,5 +1,4 @@
 
-
 //global variables
 let time = 0;
 let score = 0;
@@ -17,48 +16,8 @@ const message = document.querySelector('#message');
 
 window.addEventListener("load", init);
 
-// const words = [
-//     'hat',
-//     'river',
-//     'lucky',
-//     'statue',
-//     'generate',
-//     'stubborn',
-//     'cocktail',
-//     'runaway',
-//     'joke',
-//     'developer',
-//     'establishment',
-//     'hero',
-//     'javascript',
-//     'nutrition',
-//     'revolver',
-//     'echo',
-//     'siblings',
-//     'investigate',
-//     'horrendous',
-//     'symptom',
-//     'laughter',
-//     'magic',
-//     'master',
-//     'space',
-//     'definition'
-// ];
-
-let wordsList = [];
-
-
-    fetch('./res/dictionary.json')
-    .then(res => res.json()).then(data => {
-        //wordsList = data
-        wordsList = data
-    });
-
-
-
 
 function init() {
-    
     //set difficulty
     difficultlyText.innerHTML = difficultly;
     time = difficultly;
@@ -74,13 +33,17 @@ function init() {
 
 }
 
-function startGame() {
 
+
+function startGame() {
+    
     if (wordsMatch()) {
-        score ++
+        score ++;
         time = difficultly + 1;
+        isPlaying = true;
        
-        textInput.value = ""
+        textInput.value = '';
+        message.innerHTML = 'Keep going!!!';
         loadNewWord();
     } else {
         
@@ -105,10 +68,12 @@ function wordsMatch() {
 
 }
 
-function loadNewWord() {
-    randomIndex = Math.floor(Math.random() * wordsList.length);
+async function loadNewWord() {
+    let res = await fetch('./res/dictionary.json');
+    let wordsList = await res.json();
 
-    currentWord.innerHTML = wordsList[randomIndex];
+    randomIndex = Math.floor(Math.random() * wordsList.length);
+    currentWord.innerHTML = wordsList[randomIndex];  
 }
 
 function countDown() {
