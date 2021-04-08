@@ -13,8 +13,9 @@ const displayTime = document.querySelector('#time');
 const displayScore = document.querySelector('#score');
 const message = document.querySelector('#message');
 
-
+//events
 window.addEventListener("load", init);
+difficultlyText.addEventListener("click", inputDifficulty);
 
 
 function init() {
@@ -30,10 +31,7 @@ function init() {
     setInterval(countDown, 1000);
     
     setInterval(checkStatus, 50);
-
 }
-
-
 
 function startGame() {
     
@@ -42,11 +40,10 @@ function startGame() {
         time = difficultly + 1;
         isPlaying = true;
        
-        textInput.value = '';
+        textInput.value = ''; //clear input field
         message.innerHTML = 'Keep going!!!';
         loadNewWord();
     } else {
-        
         
     }
     
@@ -54,9 +51,7 @@ function startGame() {
         displayScore.innerHTML = 0;
     } else {
         displayScore.innerHTML = score;
-
     }
-   
 }
 
 function wordsMatch() {
@@ -65,7 +60,6 @@ function wordsMatch() {
     } else {
         return false;
     }
-
 }
 
 async function loadNewWord() {
@@ -83,7 +77,6 @@ function countDown() {
     } else if (time <=0 ) {
         isPlaying = false
     }
-
     displayTime.innerHTML = time;
 }
 
@@ -91,8 +84,38 @@ function checkStatus() {
     if (time <= 0 && isPlaying === false) {
         message.innerHTML = 'Game Over'
         score = -1;
-
     }
-
 }
 
+function inputDifficulty() {
+    // if player is still playing don't let them change the difficulty
+    if (isPlaying != false) {
+        return;
+    }
+    //disable click event (temperately)
+    difficultlyText.removeEventListener('click', inputDifficulty);
+
+    //create a text field
+    const input = document.createElement("input");
+    input.setAttribute('type', 'number');
+    input.setAttribute('value', difficultly)
+
+    //replace with text field
+    difficultlyText.innerHTML = ''; 
+    difficultlyText.appendChild(input); 
+
+    // get value from textfield when player press enter
+    input.addEventListener('keypress', (event) => {
+        if (event.key == 'Enter') {
+            
+            difficultly = +input.value; //set input as difficulty
+            difficultlyText.innerHTML = difficultly; //update difficulty in UI
+            
+            //re enable click event listener
+            difficultlyText.addEventListener('click', inputDifficulty);
+
+             //remove text field
+             //difficultlyText.removeChild(input);
+        }
+    })
+}
